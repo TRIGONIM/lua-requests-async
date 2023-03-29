@@ -1,0 +1,26 @@
+# source: https://github.com/nvim-telescope/telescope.nvim/blob/master/.github/workflows/release.yml
+name: "release"
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  luarocks-upload:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: LuaRocks Upload
+        uses: nvim-neorocks/luarocks-tag-release@v4
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
+        with:
+          summary: "Lua async requests lib, based on Copas"
+          detailed_description: |
+            Adds basic functionality for creating simple HTTP clients,
+            such as Telegram bots, API wrappers, parsers, etc.
+          dependencies: |
+            copas >= 4.3.0
+            luasec
+            lua-cjson
+          copy_directories: |
+            dir
