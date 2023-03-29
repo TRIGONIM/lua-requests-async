@@ -24,3 +24,4 @@ jobs:
             lua-cjson
           copy_directories: |
             dir
+          license: "MIT"
