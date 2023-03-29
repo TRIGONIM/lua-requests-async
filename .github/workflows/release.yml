@@ -22,6 +22,11 @@ jobs:
             copas >= 4.3.0
             luasec
             lua-cjson
+          labels: |
+            copas
+            requests
+            http
+            https
           copy_directories: |
             dir
           license: "MIT"
