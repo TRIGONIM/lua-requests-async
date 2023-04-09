@@ -18,6 +18,7 @@ jobs:
           detailed_description: |
             Adds basic functionality for creating simple HTTP clients,
             such as Telegram bots, API wrappers, parsers, etc.
+            More info: https://github.com/TRIGONIM/lua-requests-async
           dependencies: |
             copas >= 4.3.0
             luasec
@@ -27,6 +28,5 @@ jobs:
             requests
             http
             https
-          copy_directories: |
-            dir
-          license: "MIT"
+          # copy_directories: |
+          #   dir
