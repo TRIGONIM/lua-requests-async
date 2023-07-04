@@ -88,12 +88,12 @@ function http.request(parameters)
 		if res and parameters.success then
 			local ok, err = pcall(parameters.success, code, res, headers)
 			if not ok then
-				print(debug.traceback("HTTP Error In The Success Callback\n\t" .. err))
+				print(debug.traceback("HTTP Error In The Success Callback\n\t" .. tostring(err))) -- custom funcs can error({array})
 			end
 		elseif not res and parameters.failed then
 			local ok, err = pcall(parameters.failed, code) -- err str instead of code
 			if not ok then
-				print(debug.traceback("HTTP Error In The Failed Callback\n\t" .. err))
+				print(debug.traceback("HTTP Error In The Failed Callback\n\t" .. tostring(err))) -- custom funcs can error({array})
 			end
 		end
 	end)
