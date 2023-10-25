@@ -81,6 +81,10 @@ function http.request(parameters)
 			if parameters.failed then
 				local suberror = tostring(msg):match("TLS/SSL handshake failed: (.*)$") or tostring(msg) -- closed/System error/{}
 				parameters.failed("copas_error:" .. suberror) -- can be parsed if needed
+			else
+				-- Однажды попал на /usr/local/share/lua/5.1/copas.lua:70: /usr/local/share/lua/5.1/copas.lua:740: module 'ssl' not found:
+				-- Не обработал и долго не мог понять почему запрос не делается. Оказалось luasec..
+				print("Unhandled http_request error:", tostring(msg), co, skt)
 			end
 		end)
 

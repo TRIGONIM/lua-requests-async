@@ -9,8 +9,8 @@
 	2023.03.29 require cjson для pure lua environment
 ---------------------------------------------------------------------------]]
 
-local ok, http = pcall(require, "http_async")
-local http_request = ok and http.request or HTTP -- second for gmod
+local pcallok, http = pcall(require, "http_async")
+local http_request = pcallok and http.request or HTTP -- second for gmod
 
 local json_encode, json_decode -- may be nil
 if util and util.JSONToTable then -- gmod environment
@@ -79,7 +79,7 @@ function M.request(t, cb)
 		cb(resp, false)
 	end
 
-	struct.error = cb and function(reason)
+	struct.failed = cb and function(reason)
 		cb(false, reason)
 	end
 
