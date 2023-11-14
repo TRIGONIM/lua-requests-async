@@ -1,3 +1,9 @@
+--[[
+	❗❗❗ THIS FILE STILL WORKS BUT DEPRECATED ❗❗❗
+	❗❗❗ PLEASE, USE require("http_v2") INSTEAD
+	https://github.com/TRIGONIM/lua-requests-async/blob/main/lua/http_v2.lua
+]]
+
 local copas = require("copas")
 local ht    = require("copas.http")
 
