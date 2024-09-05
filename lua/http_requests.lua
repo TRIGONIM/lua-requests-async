@@ -67,7 +67,7 @@ function M.request(t, cb)
 	local struct = {
 		url        = t[2],
 		method     = t[1],
-		parameters = t.params, -- для GET под капотом добавляет к ссылке
+		parameters = t.params, -- для GET под капотом добавляет к ссылке через http.build_query. Для POST - body в формате form-urlencoded
 		headers    = t.headers,
 		body       = t.json    and json_encode(t.json) or t.data,
 		type       = t.headers and t.headers["content-type"],
