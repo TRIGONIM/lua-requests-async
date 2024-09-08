@@ -92,11 +92,20 @@ local function request(reqt)
 		-- reqt.method = reqt.method or "POST" -- PUT, PATCH?
 	end
 
-	local ok, code, headers, status = http.request(reqt)
-	if ok then
+	-- pcall is to handle copas errors like: TLS/SSL handshake failed: closed or "module 'ssl' not found"
+	local pcall_ok, http_ok_or_pcall_error, code, headers, status = pcall(http.request, reqt)
+	if not pcall_ok then
+		local pcall_error = http_ok_or_pcall_error
+		-- Однажды попал на /usr/local/share/lua/5.1/copas.lua:70: /usr/local/share/lua/5.1/copas.lua:740: module 'ssl' not found:
+		-- Не обработал и долго не мог понять почему запрос не делается. Оказалось luasec..
+		local suberror = tostring(pcall_error):match("TLS/SSL handshake failed: (.*)$") or tostring(pcall_error) -- closed/System error/{}
+		reqt.copas_error = "copas_error:" .. suberror -- can be parsed if needed
+	end
+
+	if pcall_ok and http_ok_or_pcall_error then
 		return table.concat(t), code, headers, status
-	else
-		return nil, code
+	else -- pcall error or http error
+		return nil, reqt.copas_error or code
 	end
 end
 

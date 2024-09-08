@@ -83,7 +83,7 @@ end
 -- t headers, s body (for POST), s type, i timeout
 function http.request(parameters)
 	return copas.addnamedthread("http_request", function(r, b, h)
-		copas.setErrorHandler(function(msg, co, skt)
+		copas.seterrorhandler(function(msg, co, skt)
 			if parameters.failed then
 				local suberror = tostring(msg):match("TLS/SSL handshake failed: (.*)$") or tostring(msg) -- closed/System error/{}
 				parameters.failed("copas_error:" .. suberror) -- can be parsed if needed
